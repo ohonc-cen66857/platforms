@@ -1,0 +1,15 @@
+
+{
+  // YAML (Red Hat)
+  "yaml.schemaStore.enable": true,
+  "yaml.format.enable": true,
+  "yaml.yamlVersion": "1.2",
+
+  // PowerShell linting (PSScriptAnalyzer)
+  "powershell.scriptAnalysis.enable": true,
+  "powershell.scriptAnalysis.settingsPath": ".vscode/PSScriptAnalyzerSettings.psd1",
+
+  // Markdown
+  "markdown.extension.toc.slugifyMode": "github",
+  "markdownlint.config": { "MD013": false }
+}
