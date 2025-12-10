@@ -1,0 +1,64 @@
+System
+;Windows;WIN
+;Linux;UX
+;Not Managed;NOMNG
+;Database;DB
+;Cyberark;CARK
+;Custom Application;CAP
+;Remote Control / Access;RC
+
+Platform
+;Doménový;DOM
+;Lokální;LOC
+;Oracle;ORA
+;MSSQL;MSSQL
+;MYSQL;MYSQL
+;postgre;PGS
+;Sybase;SYBS
+;externí;EXT
+;webová stránka;WEB
+;Unix SSH Password;PWD
+;Unix SSH SSH Key;KEY
+;Dell CMC;CMC
+;Dell iDRAC;DRAC
+
+Account Type
+;Interactive;INT
+;Service;SVC
+;BreakGlass;BRG
+;Script/API;SPT
+;Uživatelský;USR
+
+Role/SAS
+;Kondor;KONDOR
+;REDIM;REDIM
+;PAM;PIM
+;Citrix RPA;RPACITRIX
+;Obecne ucty (pokud neni vyzadovana separatni platforma);<blank>
+;SecretHub;SECHUB
+
+Environment
+;Production;PROD
+;Test;TST
+;Development;DEV
+;Pre-release;PRS
+;Integration;INT
+;PreProduction;PRED
+;Sys;SYS
+;General;GEN
+
+Workflows
+;Ticketing;Ticket
+;Dual Approval;ApprWf
+;Dual Approval L2;ApprL2
+;Reconcile;RECONC
+;Dual Approval + Reconcile;RC-APR
+;Dual Accounts;DuoAcc
+;Testing only;TEST
+;No workflow ;<blank>
+
+Tier
+;Tier 0;T0
+;Tier 1;T1
+;Tier 2;T2
+;Not Assigned;<blank>
