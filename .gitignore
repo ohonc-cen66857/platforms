@@ -1,0 +1,15 @@
+
+# Logs
+tools/logs/
+*.log
+
+# Dočasné/backup věci
+*.tmp
+*.bak
+
+# VSCode settings (volitelné)
+.vscode/
+
+# Windows junk
+Thumbs.db
+Desktop.ini

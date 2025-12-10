@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Device Name="Operating System"><Policies><Policy ID="WIN-DOM-SVC-GEN-T1" AutoChangeOnAdd="No" AutoVerifyOnAdd="No" PlatformBaseID="WinDomain" PlatformBaseType="Windows" PlatformBaseProtocol="Windows">
+          <Properties>
+            <Required>
+              <Property Name="Address" DisplayName="Address (i.e. csin.cz)" />
+              <Property Name="Username" />
+            </Required>
+            <Optional>
+              <Property Name="LogonDomain" ResolveFrom="Address" DisplayName="LogonDomain (i.e. csin)" />
+              <Property Name="UserDN" />
+              <Property Name="Port" />
+              <Property Name="Notes" />
+            </Optional>
+          </Properties>
+          <LinkedPasswords>
+            <Link Name="LogonAccount" PropertyIndex="1" />
+            <Link Name="ReconcileAccount" PropertyIndex="3" />
+          </LinkedPasswords>
+          <Usages>
+            <Usage Name="WinService" />
+            <Usage Name="SchedTask" />
+            <Usage Name="IISAppPool" />
+            <Usage Name="Registry" />
+            <Usage Name="ComPlus" />
+            <Usage Name="IISAnonymous" />
+          </Usages>
+          <TicketingSystem EnterTicketingInfo="No" ValidateTicketNumber="No" />
+        </Policy></Policies></Device>

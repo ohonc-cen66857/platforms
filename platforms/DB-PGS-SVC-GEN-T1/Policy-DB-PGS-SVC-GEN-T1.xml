@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Device Name="Database"><Policies><Policy ID="DB-PGS-SVC-GEN-T1" AutoChangeOnAdd="No" AutoVerifyOnAdd="No" PlatformBaseID="PostgreSQL" PlatformBaseType="PostgreSQL" PlatformBaseProtocol="ODBC">
+          <Properties>
+            <Required>
+              <Property Name="Username" />
+            </Required>
+            <Optional>
+              <Property Name="DSN" />
+              <Property Name="Address" />
+              <Property Name="Port" />
+              <Property Name="Database" />
+              <Property Name="Notes" />
+            </Optional>
+          </Properties>
+          <LinkedPasswords>
+            <Link Name="ReconcileAccount" PropertyIndex="3" />
+          </LinkedPasswords>
+          <TicketingSystem EnterTicketingInfo="No" ValidateTicketNumber="No" />
+        </Policy></Policies></Device>

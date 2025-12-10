@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Device Name="Database"><Policies><Policy AutoChangeOnAdd="No" AutoVerifyOnAdd="No" ID="DB-MSSQL-INT-GEN-T1" PlatformBaseID="MSSql" PlatformBaseProtocol="ODBC" PlatformBaseType="MSSql">
+          <Properties>
+            <Required>
+              <Property Name="Username" />
+            </Required>
+            <Optional>
+              <Property Name="Address" DisplayName="Address (i.e. hostname or IP address - no database or port!)" />
+              <Property Name="Port" />
+              <Property Name="Database" />
+              <Property Name="DSN" />
+              <Property Name="ReconcileIsWinAccount" />
+              <Property Name="Notes" />
+            </Optional>
+          </Properties>
+          <LinkedPasswords>
+            <Link Name="ReconcileAccount" PropertyIndex="3" />
+          </LinkedPasswords>
+          <TicketingSystem EnterTicketingInfo="No" ValidateTicketNumber="No" />
+          <PrivilegedSessionManagement ID="PSMBalancer" />
+          <ConnectionComponents>
+            <ConnectionComponent Id="PSM-SQLServerMgmtStudio" Enable="Yes" />
+            <ConnectionComponent Id="PSM-SQLServerMgmtStudio-Database" Enable="Yes" />
+          </ConnectionComponents>
+        </Policy></Policies></Device>

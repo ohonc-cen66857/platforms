@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Device Name="Database"><Policies><Policy AutoChangeOnAdd="No" AutoVerifyOnAdd="No" ID="DB-ORA-INT-SYSDBA-GEN-T1" PlatformBaseID="Oracle" PlatformBaseProtocol="ODBC" PlatformBaseType="Oracle">
+          <Properties>
+            <Required>
+              <Property Name="Username" />
+            </Required>
+            <Optional>
+              <Property Name="DSN" />
+              <Property Name="Address" DisplayName="Address (i.e. hostname or IP address - NO database or port!)" />
+              <Property Name="Port" />
+              <Property Name="Database" />
+              <Property Name="Notes" />
+            </Optional>
+          </Properties>
+          <LinkedPasswords>
+            <Link Name="ReconcileAccount" PropertyIndex="3" />
+          </LinkedPasswords>
+          <TicketingSystem EnterTicketingInfo="No" ValidateTicketNumber="No" />
+          <PrivilegedSessionManagement ID="PSMBalancer" />
+          <ConnectionComponents PSMConnectionDefault="PSM-SQLPlus">
+            <ConnectionComponent Id="PSM-SQLPlus" Enable="Yes" />
+            <ConnectionComponent Id="PSM-TOAD" Enable="Yes" />
+          </ConnectionComponents>
+        </Policy></Policies></Device>
