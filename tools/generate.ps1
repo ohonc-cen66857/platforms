@@ -1,14 +1,14 @@
-
+﻿
 param(
     [Parameter(Mandatory=$true)][string]$IniPath,
     [Parameter()][string]$XmlPath,
-    [Parameter()][string]$ConventionCsv # pokud se nepředá, vezme tools\name_convention.csv
+    [Parameter()][string]$ConventionCsv # pokud se nepĹ™edĂˇ, vezme tools\name_convention.csv
 )
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
-# Pokud není CSV předáno, hledej v tools\name_convention.csv
+# Pokud nenĂ­ CSV pĹ™edĂˇno, hledej v tools\name_convention.csv
 if (-not $ConventionCsv -or [string]::IsNullOrWhiteSpace($ConventionCsv)) {
     $ScriptDir = Split-Path -Parent $PSCommandPath
     $ConventionCsv = Join-Path $ScriptDir 'name_convention.csv'
@@ -73,7 +73,7 @@ function Get-ConventionsFromCsv {
         if ($line -ieq 'Workflows')    { $current='Wf';       continue }
         if ($line -ieq 'Tier')         { $current='Tier';     continue }
 
-        # Položky ve tvaru ;Popis;Zkratka
+        # PoloĹľky ve tvaru ;Popis;Zkratka
         $cols = $line.Split(';')
         if ($cols.Count -lt 3) { continue }
         $label = $cols[1].Trim()
@@ -94,7 +94,7 @@ function Get-ConventionsFromCsv {
     return $conv
 }
 
-# --- Parser názvu: OS-Platform-Account-[Role?]-Env-[Workflow?]-[Tier?] --------
+# --- Parser nĂˇzvu: OS-Platform-Account-[Role?]-Env-[Workflow?]-[Tier?] --------
 function Get-PlatformParts {
     [CmdletBinding()]
     param(
@@ -133,21 +133,21 @@ function Get-PlatformParts {
     }
 }
 
-# --- Uživatelský popis --------------------------------------------------------
+# --- UĹľivatelskĂ˝ popis --------------------------------------------------------
 function Get-UserSummary {
     [CmdletBinding()]
     param([Parameter(Mandatory=$true)]$Parsed)
 
     $psmNote = $null
-    if     ($Parsed.AcctCode -eq 'INT') { $psmNote = 's možností připojení přes PSM' }
-    elseif ($Parsed.AcctCode -eq 'SVC') { $psmNote = 'bez interaktivního připojení (SVC)' }
+    if     ($Parsed.AcctCode -eq 'INT') { $psmNote = 's moĹľnostĂ­ pĹ™ipojenĂ­ pĹ™es PSM' }
+    elseif ($Parsed.AcctCode -eq 'SVC') { $psmNote = 'bez interaktivnĂ­ho pĹ™ipojenĂ­ (SVC)' }
 
-    $envNote  = if ($Parsed.EnvCode -eq 'GEN') { 'vhodná pro všechna prostředí bez speciálního nastavení' } else { ("prostředí: {0}" -f $Parsed.EnvName) }
+    $envNote  = if ($Parsed.EnvCode -eq 'GEN') { 'vhodnĂˇ pro vĹˇechna prostĹ™edĂ­ bez speciĂˇlnĂ­ho nastavenĂ­' } else { ("prostĹ™edĂ­: {0}" -f $Parsed.EnvName) }
     $tierNote = $null; if ($Parsed.TierName)   { $tierNote = $Parsed.TierName.ToLower() }
     $roleNote = $null; if ($Parsed.RoleName)   { $roleNote = ("role/SAS: {0}" -f $Parsed.RoleName) }
     $wfNote   = $null; if ($Parsed.WfName)     { $wfNote   = ("workflow: {0}" -f $Parsed.WfName) }
 
-    $fragments = @("Platforma pro {0}" -f $Parsed.PlatName, "účty typu {0}" -f $Parsed.AcctName)
+    $fragments = @("Platforma pro {0}" -f $Parsed.PlatName, "ĂşÄŤty typu {0}" -f $Parsed.AcctName)
     if ($psmNote) { $fragments += $psmNote }
     $sentence1 = ($fragments -join ' ')
 
@@ -160,32 +160,32 @@ function Get-UserSummary {
     ("{0}. {1}." -f $sentence1, $sentence2)
 }
 
-# --- Načti INI, CSV, rozparsuj název -----------------------------------------
+# --- NaÄŤti INI, CSV, rozparsuj nĂˇzev -----------------------------------------
 $flat   = ConvertFrom-Ini -Path $IniPath
 $name   = $flat['PolicyName']; if (-not $name) { $name = ([IO.Path]::GetFileNameWithoutExtension($IniPath) -replace '^Policy-','') }
 $conv   = Get-ConventionsFromCsv -CsvPath $ConventionCsv
 $parsed = Get-PlatformParts -Name $name -Conv $conv
 
-# --- Klíčové vlastnosti (výběr z INI) ----------------------------------------
+# --- KlĂ­ÄŤovĂ© vlastnosti (vĂ˝bÄ›r z INI) ----------------------------------------
 $keys = [ordered]@{
-    'AllowManualChange'            = 'Povolit ruční změnu hesla'
-    'PerformPeriodicChange'        = 'Periodická změna hesla'
-    'ImmediateInterval'            = 'Okamžitý interval'
+    'AllowManualChange'            = 'Povolit ruÄŤnĂ­ zmÄ›nu hesla'
+    'PerformPeriodicChange'        = 'PeriodickĂˇ zmÄ›na hesla'
+    'ImmediateInterval'            = 'OkamĹľitĂ˝ interval'
     'Interval'                     = 'Interval rotace'
-    'MaximumRetries'               = 'Max. pokusů'
+    'MaximumRetries'               = 'Max. pokusĹŻ'
     'MinDelayBetweenRetries'       = 'Rozestup mezi pokusy'
     'Timeout'                      = 'Timeout'
-    'PasswordLength'               = 'Délka hesla'
-    'MinUpperCase'                 = 'Min. velká písmena'
-    'MinLowerCase'                 = 'Min. malá písmena'
-    'MinDigit'                     = 'Min. číslice'
-    'MinSpecial'                   = 'Min. speciální znaky'
-    'PasswordForbiddenChars'       = 'Zakázané znaky'
+    'PasswordLength'               = 'DĂ©lka hesla'
+    'MinUpperCase'                 = 'Min. velkĂˇ pĂ­smena'
+    'MinLowerCase'                 = 'Min. malĂˇ pĂ­smena'
+    'MinDigit'                     = 'Min. ÄŤĂ­slice'
+    'MinSpecial'                   = 'Min. speciĂˇlnĂ­ znaky'
+    'PasswordForbiddenChars'       = 'ZakĂˇzanĂ© znaky'
     'ExtraInfo::ChangeCommand'     = 'ChangeCommand'
     'ExtraInfo::ReconcileCommand'  = 'ReconcileCommand'
     'ExtraInfo::ConnectionCommand' = 'ConnectionCommand'
     'DllName'                      = 'DLL konektoru'
-    'AllowedSafes'                 = 'Povolené safy (regex)'
+    'AllowedSafes'                 = 'PovolenĂ© safy (regex)'
 }
 
 function Get-IniValue {
@@ -199,7 +199,7 @@ function Get-IniValue {
     $null
 }
 
-# --- Slož Markdown ------------------------------------------------------------
+# --- SloĹľ Markdown ------------------------------------------------------------
 $sb = New-Object System.Text.StringBuilder
 [void]$sb.AppendLine(("# {0}" -f $name))
 [void]$sb.AppendLine("")
@@ -207,14 +207,14 @@ $sb = New-Object System.Text.StringBuilder
 if ($null -ne $parsed) {
     $tierBit = ''
     if ($parsed.TierName) { $tierBit = ", Tier: $($parsed.TierName)" }
-    [void]$sb.AppendLine( ("**Shrnutí:** {0} pro {1} na {2}. Prostředí: {3}{4}." -f $parsed.AcctName, $parsed.PlatName, $parsed.OsName, $parsed.EnvName, $tierBit) )
+    [void]$sb.AppendLine( ("**ShrnutĂ­:** {0} pro {1} na {2}. ProstĹ™edĂ­: {3}{4}." -f $parsed.AcctName, $parsed.PlatName, $parsed.OsName, $parsed.EnvName, $tierBit) )
     [void]$sb.AppendLine("")
-    [void]$sb.AppendLine("### Uživatelský popis")
+    [void]$sb.AppendLine("### UĹľivatelskĂ˝ popis")
     [void]$sb.AppendLine( (Get-UserSummary -Parsed $parsed) )
     [void]$sb.AppendLine("")
 }
 
-[void]$sb.AppendLine("## Klíčové vlastnosti")
+[void]$sb.AppendLine("## KlĂ­ÄŤovĂ© vlastnosti")
 $foundAny = $false
 foreach ($kvp in $keys.GetEnumerator()) {
     $v = Get-IniValue -Key $kvp.Key
@@ -227,7 +227,7 @@ foreach ($kvp in $keys.GetEnumerator()) {
         [void]$sb.AppendLine( ("- **{0}:** {1}" -f $kvp.Value, $v) )
     }
 }
-if (-not $foundAny) { [void]$sb.AppendLine("- (Nenalezeny známé klíče.)") }
+if (-not $foundAny) { [void]$sb.AppendLine("- (Nenalezeny znĂˇmĂ© klĂ­ÄŤe.)") }
 [void]$sb.AppendLine("")
 
 # --- Metadata (opraveno) -----------------------------------------------------
@@ -239,17 +239,17 @@ if ($XmlPath) {
     try {
         $null = xml
         $xmlResolved = (Resolve-Path -LiteralPath $XmlPath)
-        [void]$sb.AppendLine( ("- XML: {0}{1}{0} — parsed" -f $bt, $xmlResolved) )
+        [void]$sb.AppendLine( ("- XML: {0}{1}{0} â€” parsed" -f $bt, $xmlResolved) )
     } catch {
         $xmlResolved = (Resolve-Path -LiteralPath $XmlPath)
-        [void]$sb.AppendLine( ("- XML: {0}{1}{0} — error: {2}" -f $bt, $xmlResolved, $_.Exception.Message) )
+        [void]$sb.AppendLine( ("- XML: {0}{1}{0} â€” error: {2}" -f $bt, $xmlResolved, $_.Exception.Message) )
     }
 }
 [void]$sb.AppendLine("")
 
-# --- Kompletní výpis INI -----------------------------------------------------
+# --- KompletnĂ­ vĂ˝pis INI -----------------------------------------------------
 [void]$sb.AppendLine("<details>")
-[void]$sb.AppendLine("<summary>Kompletní výpis INI</summary>")
+[void]$sb.AppendLine("<summary>KompletnĂ­ vĂ˝pis INI</summary>")
 [void]$sb.AppendLine("")
 foreach ($k in ($flat.Keys | Sort-Object)) {
     [void]$sb.AppendLine( ('- {0}: {1}' -f $k, $flat[$k]) )
@@ -258,7 +258,7 @@ foreach ($k in ($flat.Keys | Sort-Object)) {
 [void]$sb.AppendLine("</details>")
 [void]$sb.AppendLine("")
 
-# --- Zápis souboru -----------------------------------------------------------
+# --- ZĂˇpis souboru -----------------------------------------------------------
 $platformDir   = Split-Path -Parent $IniPath
 $platformsRoot = Split-Path -Parent $platformDir
 $outDir  = Join-Path $platformsRoot 'docs'
